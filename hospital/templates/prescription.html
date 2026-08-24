@@ -1,0 +1,260 @@
+{% include 'navbar.html' %}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    .prescription-container {
+        max-width: 950px;
+        margin: auto;
+        background: white;
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-title {
+        text-align: center;
+        color: #5a4fcf;
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    h3 {
+        color: #444;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .form-group {
+        flex: 1;
+        min-width: 250px;
+        margin-bottom: 20px;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        color: #444;
+        margin-bottom: 8px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+    }
+
+    input[readonly] {
+        background-color: #f3f4f6;
+        cursor: not-allowed;
+        color: #555;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .medicine-section {
+        margin-top: 10px;
+        padding: 20px;
+        background: #f8f9ff;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+    }
+
+    .save-btn {
+        display: block;
+        width: 220px;
+        margin: 30px auto 0;
+        padding: 13px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 20px 10px;
+        }
+
+        .prescription-container {
+            padding: 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+        }
+
+        .row {
+            gap: 0;
+        }
+
+        .form-group {
+            min-width: 100%;
+        }
+
+        .save-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="prescription-container">
+
+    <h1 class="page-title">Patient Prescription</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <h3>Patient Information</h3>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label>Patient ID</label>
+                <input type="text" value="{{ patient.id }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Patient Name</label>
+                <input type="text"
+                    value="{{ patient.first_name }} {{ patient.last_name }}"
+                    readonly>
+            </div>
+
+        </div>
+
+
+        <h3>Medical Information</h3>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label for="disease">Disease / Diagnosis</label>
+                <input
+                    type="text"
+                    name="disease"
+                    id="disease"
+                    placeholder="Enter disease or diagnosis"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Prescription Date</label>
+                <input
+                    type="date"
+                    name="date"
+                    id="date">
+            </div>
+
+        </div>
+
+        <div class="form-group full-width">
+            <label for="issues">Patient Issues / Symptoms</label>
+            <textarea
+                name="issues"
+                id="issues"
+                placeholder="Write patient's symptoms or issues here..."
+                required></textarea>
+        </div>
+
+
+        <div class="medicine-section">
+
+            <h3>Medicine Information</h3>
+
+            <div class="row">
+
+                <div class="form-group">
+                    <label for="medicine">Medicine Name</label>
+                    <input
+                        type="text"
+                        name="medicine"
+                        id="medicine"
+                        placeholder="Enter medicine name"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dosage">Dosage</label>
+                    <input
+                        type="text"
+                        name="dosage"
+                        id="dosage"
+                        placeholder="Example: 1 tablet twice daily">
+                </div>
+
+            </div>
+
+            <div class="form-group full-width">
+                <label for="instructions">Instructions</label>
+                <textarea
+                    name="instructions"
+                    id="instructions"
+                    placeholder="Example: Take medicine after food..."></textarea>
+            </div>
+
+        </div>
+
+
+        <div class="form-group full-width" style="margin-top: 25px;">
+            <label for="notes">Additional Notes</label>
+            <textarea
+                name="notes"
+                id="notes"
+                placeholder="Write any additional notes..."></textarea>
+        </div>
+
+
+        <button type="submit" class="save-btn">
+            Save Prescription
+        </button>
+
+    </form>
+
+</div>

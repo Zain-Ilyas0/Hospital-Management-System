@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f4f8f6;
+    font-family: Arial, sans-serif;
+    
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.hospital-navbar {
+    width: 100%;
+    background-color: #1f6f5f;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+
+    
+   
+    top: 0;
+    z-index: 1000;
+}
+
+
+.navbar-container {
+    max-width: 1400px;
+    min-height: 70px;
+
+    margin: auto;
+    padding: 0 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* =========================
+   HOSPITAL LOGO
+========================= */
+
+.hospital-logo {
+    color: white;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.hospital-logo:hover {
+    color: white;
+}
+
+
+/* Green Hospital Icon */
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    color: #1f6f5f;
+
+    border-radius: 50%;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+/* Hospital Name */
+
+.hospital-name {
+    display: block;
+
+    font-size: 21px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* Small Text Under Hospital Name */
+
+.hospital-logo small {
+    display: block;
+
+    color: #dcefe9;
+
+    font-size: 11px;
+    font-weight: 400;
+
+    margin-top: 2px;
+}
+
+
+/* =========================
+   NAVIGATION LINKS
+========================= */
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+}
+
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+
+    padding: 10px 15px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: all 0.3s ease;
+}
+
+
+/* Hover */
+
+.nav-link:hover {
+    color: #ffffff;
+
+    background-color: #18594c;
+
+    transform: translateY(-1px);
+}
+
+
+/* Active Link */
+
+.nav-link.active {
+    background-color: #18594c;
+    color: white;
+}
+
+
+/* =========================
+   MAIN PAGE AREA
+========================= */
+
+.page-container {
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 30px;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title {
+    color: #1f6f5f;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.hospital-card {
+    background-color: white;
+
+    border-radius: 10px;
+
+    padding: 25px;
+
+    border: 1px solid #dceae5;
+
+    box-shadow: 0 3px 10px rgba(31, 111, 95, 0.08);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hospital-btn {
+    background-color: #1f6f5f;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.hospital-btn:hover {
+    background-color: #18594c;
+
+}
+
+
+/* Secondary Button */
+
+.hospital-btn-secondary {
+    background-color: #e9f4f0;
+
+    color: #1f6f5f;
+
+    border: 1px solid #c8e1d9;
+
+    padding: 10px 20px;
+
+    border-radius: 7px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.hospital-btn-secondary:hover {
+    background-color: #dcefe9;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.hospital-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background-color: white;
+}
+
+
+.hospital-table th {
+    background-color: #1f6f5f;
+
+    color: white;
+
+    padding: 13px;
+
+    text-align: left;
+
+    font-size: 14px;
+}
+
+
+.hospital-table td {
+    padding: 12px;
+
+    border-bottom: 1px solid #e1ece8;
+
+    color: #374151;
+
+    font-size: 14px;
+}
+
+
+.hospital-table tr:hover {
+    background-color: #f4f8f6;
+}
+
+
+/* =========================
+   FORM INPUTS
+========================= */
+
+.hospital-input,
+.hospital-select,
+.hospital-textarea {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    border: 1px solid #cbded8;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    background-color: white;
+
+    transition: 0.2s;
+}
+
+
+.hospital-input:focus,
+.hospital-select:focus,
+.hospital-textarea:focus {
+    border-color: #1f6f5f;
+
+    box-shadow: 0 0 0 3px rgba(31, 111, 95, 0.12);
+}
+
+
+/* =========================
+   FORM LABEL
+========================= */
+
+.hospital-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+        .logout-btn {
+            background-color: white;
+            color: var(--primary) !important;
+            border: none;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 8px;
+            margin-left: 25px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #dff7f3;
+            color: var(--primary-dark) !important;
+            transform: translateY(-2px);
+        }
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .navbar-container {
+        flex-direction: column;
+
+        padding: 15px;
+
+        gap: 12px;
+    }
+
+    .navbar-links {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .hospital-logo {
+        justify-content: center;
+    }
+
+    .page-container {
+        padding: 20px;
+    }
+}
+
+</style>
+<body>
+    
+<nav class="hospital-navbar">
+
+    <div class="navbar-container">
+
+        <!-- Hospital Logo -->
+        <a href="#" class="hospital-logo">
+            <span class="logo-icon">✚</span>
+            <div>
+                <span class="hospital-name">CarePlus</span>
+                <small>Hospital Management</small>
+            </div>
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="navbar-links">
+
+            <a href="#" class="nav-link">
+                🏠 Home
+            </a>
+
+            <a href="#" class="nav-link">
+                👨‍⚕️ Doctors
+            </a>
+
+            <a href="#" class="nav-link">
+                🧑‍🤝‍🧑 Patients
+            </a>
+
+            <a href="#" class="nav-link">
+                📋 Reports
+            </a>
+
+            <a href="#" class="nav-link">
+                ℹ️ About
+            </a>
+        {% if user.is_authenticated %}
+        <li class="nav-item" class="logout-btn" >
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% endif %}
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+</body>
+</html>

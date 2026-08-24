@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+{% include 'navbar.html' %}
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #f4f8f6;
+        font-family: Arial, sans-serif;
+        color: #2d3a35;
+        padding: 40px;
+    }
+
+    /* Main Form */
+    form {
+        background-color: #ffffff;
+        max-width: 1400px;
+        margin: auto;
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Section Headings */
+    h3 {
+        color: #1f6f5f;
+        font-weight: 700;
+        margin-top: 25px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #dcebe6;
+    }
+
+    /* Labels */
+    .form-label,
+    label {
+        font-weight: 600;
+        color: #43524c;
+    }
+
+    /* Input Fields */
+    .form-control {
+        border: 1px solid #cbd8d3;
+        border-radius: 8px;
+        padding: 10px 12px;
+    }
+
+    .form-control:focus {
+        border-color: #2e8b73;
+        box-shadow: 0 0 0 0.2rem rgba(46, 139, 115, 0.15);
+    }
+
+    /* Gender Select */
+    select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cbd8d3;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background-color: white;
+    }
+
+    select:focus {
+        outline: none;
+        border-color: #2e8b73;
+        box-shadow: 0 0 0 0.2rem rgba(46, 139, 115, 0.15);
+    }
+
+    /* Submit Button */
+    .btn-primary {
+        background-color: #1f6f5f;
+        border-color: #1f6f5f;
+        padding: 10px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+        background-color: #18594c;
+        border-color: #18594c;
+    }
+
+    /* Doctors Record Heading */
+    h3:last-of-type {
+        margin-top: 50px;
+    }
+
+    /* Table */
+    .table {
+        margin-top: 20px;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .table thead {
+        background-color: #1f6f5f;
+        color: white;
+    }
+
+    .table thead th {
+        padding: 15px 10px;
+        white-space: nowrap;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .table tbody td,
+    .table tbody th {
+        padding: 13px 10px;
+        vertical-align: middle;
+        border-color: #e5ece9;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f0f7f4;
+    }
+
+    /* Edit Button */
+    .btn-warning {
+        background-color: #e9a23b;
+        border-color: #e9a23b;
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background-color: #d38d25;
+        border-color: #d38d25;
+        color: white;
+    }
+
+    /* Delete Button */
+    .btn-danger {
+        background-color: #c95757;
+        border-color: #c95757;
+    }
+
+    .btn-danger:hover {
+        background-color: #ad4141;
+        border-color: #ad4141;
+    }
+
+    .page-title {
+        text-align: center;
+
+        color: #1f6f5f;
+    }
+
+    /* Make table scroll on small screens */
+    @media (max-width: 768px) {
+
+        body {
+            padding: 15px;
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        .table {
+            font-size: 13px;
+        }
+    }
+
+</style>
+
+
+
+
+<body>
+
+    {% if edit_patient %}
+<form method="POST" action="{% url 'edit_patient' edit_patient.id %}">
+{% else %}
+<form method="POST" action="{% url 'patient' %}">
+{% endif %}
+
+    {% csrf_token %}
+
+    <h1 class="page-title">Patients Information</h1>
+
+    {% if is_admin %}
+        <p style="color: green;">ADMIN LOGGED IN</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <div class="row">
+
+        <h3>Patient Information</h3>
+
+        <div class="col-md-6 mb-3">
+            <label for="patient_name" class="form-label">
+                Patient Name
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                id="patient_name"
+                name="patient_name"
+                value="{{ edit_patient.patient_name|default:'' }}"
+                required
+            >
+        </div>
+
+
+        {% if is_admin or is_receptionist %}
+
+        <div class="col-md-6 mb-3">
+
+            <label for="doctor" class="form-label">
+                Doctor
+            </label>
+
+            <select
+                class="form-control"
+                id="doctor"
+                name="doctor"
+                required
+            >
+
+                <option value="">Select Doctor</option>
+
+                {% for doctor in doctors %}
+
+                    <option
+                        value="{{ doctor.id }}"
+                        {% if edit_patient.doctor.id == doctor.id %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ doctor.first_name }} {{ doctor.last_name }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        {% endif %}
+
+
+        <div class="col-md-6 mb-3">
+
+            <label for="age" class="form-label">
+                Age
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                id="age"
+                name="age"
+                value="{{ edit_patient.age|default:'' }}"
+                required
+            >
+
+        </div>
+
+
+        <div class="col-md-6 mb-3">
+
+            <label for="gender" class="form-label">
+                Gender
+            </label>
+
+            <select
+                class="form-control"
+                id="gender"
+                name="gender"
+                required
+            >
+
+                <option value="">Select Gender</option>
+
+                <option value="Male"
+                    {% if edit_patient.gender == "Male" %}
+                        selected
+                    {% endif %}
+                >
+                    Male
+                </option>
+
+                <option value="Female"
+                    {% if edit_patient.gender == "Female" %}
+                        selected
+                    {% endif %}
+                >
+                    Female
+                </option>
+
+                <option value="Other"
+                    {% if edit_patient.gender == "Other" %}
+                        selected
+                    {% endif %}
+                >
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="col-md-6 mb-3">
+
+            <label for="phone_number" class="form-label">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                class="form-control"
+                id="phone_number"
+                name="phone_number"
+                value="{{ edit_patient.phone_number|default:'' }}"
+                required
+            >
+
+        </div>
+
+
+        <div class="col-md-6 mb-3">
+
+            <label for="patient_problem" class="form-label">
+                Patient Problem
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                id="patient_problem"
+                name="patient_problem"
+                value="{{ edit_patient.patient_problem|default:'' }}"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">
+
+            {% if edit_patient %}
+                Update
+            {% else %}
+                Submit
+            {% endif %}
+
+        </button>
+
+    </div>
+
+</form>
+
+
+
+<h3>Patients Records ({{ patients|length }})</h3>
+
+  <div class="table-responsive">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Patient Name</th>
+      
+      <th scope="col">Age</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Doctor</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Patient Problem</th>
+      <th scope="col">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in patients %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{a.patient_name}}</td>
+      <td>{{a.age}}</td>
+      <td>{{a.gender}}</td>
+      <td>{{ a.doctor.first_name }} {{ a.doctor.last_name }}</td>
+      <td>{{a.phone_number}}</td>
+      <td>{{a.patient_problem}}</td>
+
+      <td>
+               
+                <a href="{% url 'edit_patient' a.id %}" class="btn btn-warning btn-sm">
+                    Edit
+                </a>
+
+                <a href="{% url 'delete_patient' a.id %}" class="btn btn-danger btn-sm">
+                    Delete
+                </a>
+            </td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>

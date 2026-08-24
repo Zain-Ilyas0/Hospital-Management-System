@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h2>Doctor Details</h2>
+
+    <div class="card mt-4">
+        <div class="card-body">
+
+            <h4>Personal Information</h4>
+
+            <p><strong>id:</strong> {{ doctor.id }}</p>
+            <p><strong>First Name:</strong> {{ doctor.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ doctor.last_name }}</p>
+            <p><strong>Date of Birth:</strong> {{ doctor.date_of_birth }}</p>
+            <p><strong>CNIC:</strong> {{ doctor.cnic }}</p>
+            <p><strong>Gender:</strong> {{ doctor.gender }}</p>
+
+            <hr>
+
+            <h4>Contact Information</h4>
+
+            <p><strong>Phone:</strong> {{ doctor.phone_number }}</p>
+            <p><strong>Email:</strong> {{ doctor.email }}</p>
+            <p><strong>Address:</strong> {{ doctor.address }}</p>
+
+            <hr>
+
+            <h4>Professional Information</h4>
+
+            <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+            <p><strong>Qualification:</strong> {{ doctor.qualification }}</p>
+
+            {% comment %} <a href="#"
+               class="btn btn-warning">
+                Edit
+            </a> {% endcomment %}
+
+            <a href="{% url 'doctor' %}"
+               class="btn btn-secondary">
+                Back
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

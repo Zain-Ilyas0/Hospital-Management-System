@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+   /* =========================
+   PATIENT SEARCH PAGE
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f4f8f6;
+    font-family: Arial, sans-serif;
+    color: #374151;
+}
+
+
+/* =========================
+   SEARCH FORM
+========================= */
+
+form {
+    max-width: 1000px;
+
+    margin: 40px auto 20px;
+
+    padding: 30px;
+
+    background-color: white;
+
+    border: 1px solid #dceae5;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 10px rgba(31, 111, 95, 0.08);
+}
+
+
+/* Form Row */
+
+form .row {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+
+/* Input Columns */
+
+form .col-md-6 {
+    flex: 1;
+
+    min-width: 250px;
+}
+
+
+/* =========================
+   FORM LABELS
+========================= */
+
+.form-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   FORM INPUTS
+========================= */
+
+.form-control {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #cbded8;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    background-color: white;
+
+    transition: 0.2s ease;
+}
+
+
+.form-control:focus {
+    border-color: #1f6f5f;
+
+    box-shadow: 0 0 0 3px rgba(31, 111, 95, 0.12);
+}
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+.btn-primary {
+    margin-top: 15px;
+
+    background-color: #1f6f5f;
+
+    color: white;
+
+    border: none;
+
+    padding: 11px 25px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.btn-primary:hover {
+    background-color: #18594c;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+.alert-danger {
+    max-width: 1000px;
+
+    margin: 20px auto;
+
+    padding: 14px 18px;
+
+    background-color: #fff1f1;
+
+    border: 1px solid #f1caca;
+
+    border-radius: 8px;
+
+    color: #b42318;
+
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+
+/* =========================
+   PATIENT INFORMATION CARD
+========================= */
+
+.card {
+    max-width: 1000px;
+
+    margin: 30px auto 50px;
+
+    background-color: white;
+
+    border: 1px solid #dceae5;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 10px rgba(31, 111, 95, 0.08);
+}
+
+
+/* Card Padding */
+
+.card.p-4 {
+    padding: 30px;
+}
+
+
+/* =========================
+   PATIENT TITLE
+========================= */
+
+.card h2 {
+    margin: 0 0 10px;
+
+    color: #1f6f5f;
+
+    font-size: 26px;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   HORIZONTAL LINE
+========================= */
+
+.card hr {
+    border: none;
+
+    border-top: 1px solid #dceae5;
+
+    margin: 20px 0;
+}
+
+
+/* =========================
+   PATIENT DETAILS
+========================= */
+
+.card p {
+    display: flex;
+
+    align-items: center;
+
+    margin: 0;
+
+    padding: 14px 10px;
+
+    border-bottom: 1px solid #e1ece8;
+
+    color: #374151;
+
+    font-size: 15px;
+}
+
+
+.card p:last-child {
+    border-bottom: none;
+}
+
+
+.card p strong {
+    min-width: 180px;
+
+    color: #1f6f5f;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    form {
+        margin: 30px 20px;
+
+        padding: 25px;
+    }
+
+    .alert-danger {
+        margin: 20px;
+    }
+
+    .card {
+        margin: 30px 20px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    form {
+        padding: 20px;
+    }
+
+    form .row {
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+    form .col-md-6 {
+        width: 100%;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .card.p-4 {
+        padding: 20px;
+    }
+
+    .card h2 {
+        font-size: 22px;
+    }
+
+    .card p {
+        display: block;
+
+        padding: 13px 5px;
+    }
+
+    .card p strong {
+        display: block;
+
+        margin-bottom: 5px;
+    }
+
+}
+</style>
+
+
+
+<body>
+
+    {% include "navbar.html" %}
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Patient ID</label>
+
+            <input
+                type="number"
+                name="patient_id"
+                class="form-control"
+                placeholder="Enter Patient ID"
+                required
+            >
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Patient Name</label>
+
+            <input
+                type="text"
+                name="patient_name"
+                class="form-control"
+                placeholder="Enter Patient Name"
+                required
+            >
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Search Patient
+    </button>
+
+</form>
+
+{% if error %}
+    <div class="alert alert-danger mt-3">
+        {{ error }}
+    </div>
+{% endif %}
+
+
+{% if patient %}
+
+<div class="card mt-4 p-4">
+
+    <h2>Patient Information</h2>
+
+    <hr>
+
+    <p>
+        <strong>Patient ID:</strong>
+        {{ patient_number }}
+    </p>
+
+    <p>
+        <strong>Patient Name:</strong>
+        {{ patient.patient_name }}
+    </p>
+
+    <p>
+        <strong>Age:</strong>
+        {{ patient.age }}
+    </p>
+
+    <p>
+        <strong>Gender:</strong>
+        {{ patient.gender }}
+    </p>
+
+    <p>
+        <strong>Doctor:</strong>
+
+        {% if patient.doctor %}
+            {{ patient.doctor.first_name }}
+            {{ patient.doctor.last_name }}
+        {% else %}
+            No Doctor Assigned
+        {% endif %}
+
+    </p>
+
+    <p>
+        <strong>Phone Number:</strong>
+        {{ patient.phone_number }}
+    </p>
+
+    <p>
+        <strong>Patient Problem:</strong>
+        {{ patient.patient_problem }}
+    </p>
+
+</div>
+
+{% endif %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
